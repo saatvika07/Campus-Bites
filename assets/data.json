@@ -1,0 +1,23 @@
+[
+    {
+      "placeImage": "images/FastFoods.jpg",
+      "placeName": "Fast Food",
+      "placePage": "FastFoodPage"
+    },
+    {
+      "placeImage": "images/tiffins.jpg",
+      "placeName": "Tiffins",
+      "placePage": "TiffinsPage"
+    },
+    {
+      "placeImage": "images/juices.jpg",
+      "placeName": "Juice",
+      "placePage": "JuicePage"
+    },
+    {
+      "placeImage": "images/panipuri1.jpg",
+      "placeName": "PaniPuri & Chats",
+      "placePage": "PaniPuriPage"
+    }
+  ]
+  
