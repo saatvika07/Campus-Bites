@@ -1,4 +1,4 @@
-# login_signup
+# Campus Bites
 
 A new Flutter project.
 
