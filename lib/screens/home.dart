@@ -5,6 +5,7 @@ import 'package:login_signup/pages/fastfood.dart';
 import 'package:login_signup/pages/jucies.dart';
 import 'package:login_signup/pages/panipuri.dart';
 import 'package:login_signup/pages/tiffins.dart';
+import 'package:login_signup/widgets/custom_scaffold.dart';
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -16,12 +17,8 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: MyHomePage(),
+    return CustomScaffold(
+      child: MyHomePage(),
     );
   }
 }
@@ -34,6 +31,8 @@ var bannerImages = [
 ];
 
 class MyHomePage extends StatelessWidget {
+  const MyHomePage({super.key});
+
   @override
   Widget build(BuildContext context) {
     var screenHeight = MediaQuery.of(context).size.height;
