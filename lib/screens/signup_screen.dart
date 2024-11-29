@@ -14,6 +14,7 @@ class SignUpScreen extends StatefulWidget {
 class _SignUpScreenState extends State<SignUpScreen> {
   final _formSignupKey = GlobalKey<FormState>();
   bool agreePersonalData = true;
+
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
@@ -37,13 +38,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
               ),
               child: SingleChildScrollView(
-                // get started form
+                // Get started form
                 child: Form(
                   key: _formSignupKey,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      // get started text
+                      // Get started text
                       Text(
                         'Get Started',
                         style: TextStyle(
@@ -55,7 +56,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       const SizedBox(
                         height: 40.0,
                       ),
-                      // full name
+                      // Full name
                       TextFormField(
                         validator: (value) {
                           if (value == null || value.isEmpty) {
@@ -70,15 +71,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             color: Colors.black26,
                           ),
                           border: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                              color: Colors.black12, // Default border color
-                            ),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                              color: Colors.black12, // Default border color
-                            ),
                             borderRadius: BorderRadius.circular(10),
                           ),
                         ),
@@ -86,11 +78,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       const SizedBox(
                         height: 25.0,
                       ),
-                      // email
+                      // Email
                       TextFormField(
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Please enter Email';
+                          }
+                          // Regex for email validation
+                          String pattern =
+                              r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$';
+                          if (!RegExp(pattern).hasMatch(value)) {
+                            return 'Please enter a valid Email';
                           }
                           return null;
                         },
@@ -101,15 +99,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             color: Colors.black26,
                           ),
                           border: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                              color: Colors.black12, // Default border color
-                            ),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                              color: Colors.black12, // Default border color
-                            ),
                             borderRadius: BorderRadius.circular(10),
                           ),
                         ),
@@ -117,13 +106,19 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       const SizedBox(
                         height: 25.0,
                       ),
-                      // password
+                      // Password
                       TextFormField(
                         obscureText: true,
                         obscuringCharacter: '*',
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Please enter Password';
+                          }
+                          // Regex for password validation
+                          String pattern =
+                              r'^(?=.*[A-Z])(?=.*[!@#\$&*~])(?=.*\d).{8,}$';
+                          if (!RegExp(pattern).hasMatch(value)) {
+                            return 'Password must contain at least 1 uppercase, 1 symbol, 1 number, and be 8+ characters long';
                           }
                           return null;
                         },
@@ -134,15 +129,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             color: Colors.black26,
                           ),
                           border: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                              color: Colors.black12, // Default border color
-                            ),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                              color: Colors.black12, // Default border color
-                            ),
                             borderRadius: BorderRadius.circular(10),
                           ),
                         ),
@@ -150,7 +136,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       const SizedBox(
                         height: 25.0,
                       ),
-                      // i agree to the processing
+                      // I agree to the processing
                       Row(
                         children: [
                           Checkbox(
@@ -180,16 +166,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       const SizedBox(
                         height: 25.0,
                       ),
-                      // signup button
+                      // Signup button
                       SizedBox(
                         width: double.infinity,
                         child: ElevatedButton(
                           onPressed: () {
                             if (_formSignupKey.currentState!.validate() &&
                                 agreePersonalData) {
-                             Navigator.push(context,
-                             MaterialPageRoute(builder: (context) => const SignInScreen()),
-                             );
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const SignInScreen()),
+                              );
                             } else if (!agreePersonalData) {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
@@ -204,7 +192,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       const SizedBox(
                         height: 30.0,
                       ),
-                      // sign up divider
+                      // Sign up divider
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -237,7 +225,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       const SizedBox(
                         height: 30.0,
                       ),
-                      // sign up social media logo
+                      // Sign up social media logo
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
@@ -250,7 +238,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       const SizedBox(
                         height: 25.0,
                       ),
-                      // already have an account
+                      // Already have an account
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [

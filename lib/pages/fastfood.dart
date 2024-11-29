@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 import 'cart_page.dart'; // Import the CartPage
 
 class FastFoodPage extends StatefulWidget {
+  const FastFoodPage({super.key});
+
   @override
   _FastFoodPageState createState() => _FastFoodPageState();
 }
 
 class _FastFoodPageState extends State<FastFoodPage> {
   final List<Map<String, dynamic>> foodItems = [
-    {'name': 'Veg Fried Rice', 'image': 'assets/images/BG.png', 'quantity': 0, 'price': 150},
+    {'name': 'Veg Fried Rice', 'image': 'assets/images/vfr.jpg', 'quantity': 0, 'price': 150},
     {'name': 'Egg Fried Rice', 'image': 'assets/images/efr.jpg', 'quantity': 0, 'price': 180},
     {'name': 'Chicken Fried Rice', 'image': 'assets/images/cfr.jpg', 'quantity': 0, 'price': 220},
     {'name': 'Veg Noodles', 'image': 'assets/images/vn.png', 'quantity': 0, 'price': 130},
@@ -48,13 +50,13 @@ class _FastFoodPageState extends State<FastFoodPage> {
     SnackBar(
       content: Text(
         '${foodItems[index]['name']} added to cart!',
-        style: TextStyle(
+        style: const TextStyle(
           fontSize: 16,
           fontWeight: FontWeight.bold,
         ),
       ),
       backgroundColor: Colors.green.shade600,
-      duration: Duration(seconds: 2), // Duration for the SnackBar
+      duration: const Duration(seconds: 2), // Duration for the SnackBar
     ),
   );
 }
@@ -65,13 +67,13 @@ class _FastFoodPageState extends State<FastFoodPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Fast Food"),
+        title: const Text("Fast Food"),
         backgroundColor: const Color.fromARGB(255, 244, 243, 243),
         centerTitle: true,
         elevation: 8,
         actions: [
           IconButton(
-            icon: Icon(Icons.shopping_cart),
+            icon: const Icon(Icons.shopping_cart),
             onPressed: () {
               // Navigate to cart page
               Navigator.push(
@@ -95,7 +97,7 @@ class _FastFoodPageState extends State<FastFoodPage> {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: GridView.builder(
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2, // Two items per row
               mainAxisSpacing: 12,
               crossAxisSpacing: 12,
@@ -128,7 +130,7 @@ class _FastFoodPageState extends State<FastFoodPage> {
                       left: 10,
                       right: 10,
                       child: Container(
-                        padding: EdgeInsets.symmetric(vertical: 8.0),
+                        padding: const EdgeInsets.symmetric(vertical: 8.0),
                         decoration: BoxDecoration(
                           color: Colors.black.withOpacity(0.5), // Semi-transparent background
                           borderRadius: BorderRadius.circular(10),
@@ -138,23 +140,23 @@ class _FastFoodPageState extends State<FastFoodPage> {
                             Text(
                               foodItems[index]['name'],
                               textAlign: TextAlign.center,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.white,
                               ),
                             ),
-                            SizedBox(height: 4),
+                            const SizedBox(height: 4),
                             Text(
                               '₹${foodItems[index]['price']}',
                               textAlign: TextAlign.center,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.white,
                               ),
                             ),
-                            SizedBox(height: 4),
+                            const SizedBox(height: 4),
                             ElevatedButton(
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.orange.shade700,
@@ -163,7 +165,7 @@ class _FastFoodPageState extends State<FastFoodPage> {
                                 ),
                               ),
                               onPressed: () => addToCart(index),
-                              child: Text(
+                              child: const Text(
                                 'Add to Cart',
                                 style: TextStyle(
                                   fontSize: 16,

@@ -35,7 +35,7 @@ class SearchWidget extends StatelessWidget {
                     CupertinoIcons.search,
                     color: Colors.orange
                     ),
-                  Container(
+                  SizedBox(
                     height: 50,
                     width: 300,
                     child: Padding(padding: const EdgeInsets.symmetric(

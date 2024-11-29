@@ -24,11 +24,11 @@ class HomeScreen extends StatelessWidget {
           case 'FastFoodPage':
             return FastFoodPage();
           case 'TiffinsPage':
-            return TiffinsPage();
+            return const TiffinsPage();
           case 'JuicePage':
-            return JuicesPage();
+            return const JuicesPage();
           case 'PaniPuriPage':
-            return PaniPuriPage();
+            return const PaniPuriPage();
           default:
             return const Center(child: Text("Page not found"));
         }
