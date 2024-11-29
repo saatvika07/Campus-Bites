@@ -186,10 +186,3 @@ class _FastFoodPageState extends State<FastFoodPage> {
     );
   }
 }
-
-void main() {
-  runApp(MaterialApp(
-    debugShowCheckedModeBanner: false, // This hides the debug banner
-    home: FastFoodPage(),
-  ));
-}

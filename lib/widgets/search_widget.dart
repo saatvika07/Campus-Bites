@@ -49,6 +49,7 @@ class SearchWidget extends StatelessWidget {
                     ),
                     ),
                     ),
+                    const Spacer(),
                     const Icon(Icons.filter_list),
                 ],
                 ),
@@ -56,3 +57,6 @@ class SearchWidget extends StatelessWidget {
                 ),),
             );
 }}
+
+
+
