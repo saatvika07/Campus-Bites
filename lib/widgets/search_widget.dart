@@ -38,13 +38,21 @@ class SearchWidget extends StatelessWidget {
                   Container(
                     height: 50,
                     width: 300,
-                    child: const Padding(padding: EdgeInsets.symmetric(
+                    child: Padding(padding: const EdgeInsets.symmetric(
                       horizontal: 15,
-                    ))
-                  )
+                    ),
+                    child:TextFormField(
+                      decoration: const InputDecoration(
+                        hintText: "What would you like to have?",
+                        border: InputBorder.none,
+                      ),
+                    ),
+                    ),
+                    ),
+                    const Icon(Icons.filter_list),
+                ],
+                ),
                   
-                ],)),
-            ));
-  }
-}
-
+                ),),
+            );
+}}
