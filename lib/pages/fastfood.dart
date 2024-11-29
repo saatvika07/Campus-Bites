@@ -24,44 +24,42 @@ class _FastFoodPageState extends State<FastFoodPage> {
   List<Map<String, dynamic>> cartItems = [];
 
   void addToCart(int index) {
-  setState(() {
-    // Find the item in the cart
-    var itemInCart = cartItems.firstWhere(
-      (item) => item['name'] == foodItems[index]['name'],
-      orElse: () => {} // Return an empty map if not found
-    );
+    setState(() {
+      // Find the item in the cart
+      var itemInCart = cartItems.firstWhere(
+        (item) => item['name'] == foodItems[index]['name'],
+        orElse: () => {}, // Return an empty map if not found
+      );
 
-    // If the item is not in the cart, add it
-    if (itemInCart.isEmpty) {
-      cartItems.add({
-        'name': foodItems[index]['name'],
-        'image': foodItems[index]['image'],
-        'quantity': 1,
-        'price': foodItems[index]['price'],
-      });
-    } else {
-      // If item is already in the cart, increment its quantity
-      itemInCart['quantity']++;
-    }
-  });
+      // If the item is not in the cart, add it
+      if (itemInCart.isEmpty) {
+        cartItems.add({
+          'name': foodItems[index]['name'],
+          'image': foodItems[index]['image'],
+          'quantity': 1,
+          'price': foodItems[index]['price'],
+        });
+      } else {
+        // If item is already in the cart, increment its quantity
+        itemInCart['quantity']++;
+      }
+    });
 
-  // Show a SnackBar with a success message
-  ScaffoldMessenger.of(context).showSnackBar(
-    SnackBar(
-      content: Text(
-        '${foodItems[index]['name']} added to cart!',
-        style: const TextStyle(
-          fontSize: 16,
-          fontWeight: FontWeight.bold,
+    // Show a SnackBar with a success message
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          '${foodItems[index]['name']} added to cart!',
+          style: const TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+          ),
         ),
+        backgroundColor: Colors.green.shade600,
+        duration: const Duration(seconds: 2), // Duration for the SnackBar
       ),
-      backgroundColor: Colors.green.shade600,
-      duration: const Duration(seconds: 2), // Duration for the SnackBar
-    ),
-  );
-}
-
-
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -71,119 +69,128 @@ class _FastFoodPageState extends State<FastFoodPage> {
         backgroundColor: const Color.fromARGB(255, 244, 243, 243),
         centerTitle: true,
         elevation: 8,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.shopping_cart),
-            onPressed: () {
-              // Navigate to cart page
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => CartPage(cartItems: cartItems),
+      ),
+      body: Stack(
+        children: [
+          // Main content (food grid)
+          Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [Colors.orange.shade100, Colors.yellow.shade100],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: GridView.builder(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2, // Two items per row
+                  mainAxisSpacing: 12,
+                  crossAxisSpacing: 12,
+                  childAspectRatio: 0.8,
                 ),
-              );
-            },
+                itemCount: foodItems.length,
+                itemBuilder: (context, index) {
+                  return Card(
+                    elevation: 8,
+                    shadowColor: Colors.grey.shade300,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: Stack(
+                      alignment: Alignment.bottomCenter,
+                      children: [
+                        // Food image
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(15),
+                          child: SizedBox.expand(
+                            child: Image.asset(
+                              foodItems[index]['image'],
+                              fit: BoxFit.cover, // Ensures the image covers the space
+                            ),
+                          ),
+                        ),
+                        // Text overlay on the image
+                        Positioned(
+                          bottom: 10,
+                          left: 10,
+                          right: 10,
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(vertical: 8.0),
+                            decoration: BoxDecoration(
+                              color: Colors.black.withOpacity(0.5), // Semi-transparent background
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Column(
+                              children: [
+                                Text(
+                                  foodItems[index]['name'],
+                                  textAlign: TextAlign.center,
+                                  style: const TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                const SizedBox(height: 4),
+                                Text(
+                                  '₹${foodItems[index]['price']}',
+                                  textAlign: TextAlign.center,
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                const SizedBox(height: 4),
+                                ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.orange.shade700,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                  ),
+                                  onPressed: () => addToCart(index),
+                                  child: const Text(
+                                    'Add to Cart',
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              ),
+            ),
+          ),
+          // Floating cart icon at the bottom right
+          Positioned(
+            bottom: 20,
+            right: 20,
+            child: FloatingActionButton(
+              backgroundColor: Colors.orange.shade700,
+              onPressed: () {
+                // Navigate to cart page
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => CartPage(cartItems: cartItems),
+                  ),
+                );
+              },
+              child: const Icon(Icons.shopping_cart),
+            ),
           ),
         ],
-      ),
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Colors.orange.shade100, Colors.yellow.shade100],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: GridView.builder(
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2, // Two items per row
-              mainAxisSpacing: 12,
-              crossAxisSpacing: 12,
-              childAspectRatio: 0.8,
-            ),
-            itemCount: foodItems.length,
-            itemBuilder: (context, index) {
-              return Card(
-                elevation: 8,
-                shadowColor: Colors.grey.shade300,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                child: Stack(
-                  alignment: Alignment.bottomCenter,
-                  children: [
-                    // Food image
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(15),
-                      child: SizedBox.expand(
-                        child: Image.asset(
-                          foodItems[index]['image'],
-                          fit: BoxFit.cover, // Ensures the image covers the space
-                        ),
-                      ),
-                    ),
-                    // Text overlay on the image
-                    Positioned(
-                      bottom: 10,
-                      left: 10,
-                      right: 10,
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(vertical: 8.0),
-                        decoration: BoxDecoration(
-                          color: Colors.black.withOpacity(0.5), // Semi-transparent background
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Column(
-                          children: [
-                            Text(
-                              foodItems[index]['name'],
-                              textAlign: TextAlign.center,
-                              style: const TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                              ),
-                            ),
-                            const SizedBox(height: 4),
-                            Text(
-                              '₹${foodItems[index]['price']}',
-                              textAlign: TextAlign.center,
-                              style: const TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                              ),
-                            ),
-                            const SizedBox(height: 4),
-                            ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.orange.shade700,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                              ),
-                              onPressed: () => addToCart(index),
-                              child: const Text(
-                                'Add to Cart',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              );
-            },
-          ),
-        ),
       ),
     );
   }
