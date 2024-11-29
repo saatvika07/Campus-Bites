@@ -1,18 +1,20 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:login_signup/widgets/custom_scaffold.dart';
+import 'package:login_signup/widgets/search_widget.dart';
 
 class PaniPuriPage extends StatelessWidget {
+  const PaniPuriPage({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Fast Food"),
-      ),
-      body: Center(
-        child: Text(
-          "Welcome to the Fast Food Page!",
-          style: TextStyle(fontSize: 20),
-        ),
-      ),
+    return CustomScaffold(
+      child: ListView(
+        children: const [
+          SearchWidget()
+        ],
+      )
+
     );
   }
 }

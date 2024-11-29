@@ -215,4 +215,8 @@ class OrderPlacedPage extends StatelessWidget {
       ),
     );
   }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 8e052561b12fa0fa1fdfad118dbdb0a29416a548
