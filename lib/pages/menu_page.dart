@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:login_signup/pages/cart_manager.dart';
 import 'package:login_signup/widgets/custom_scaffold.dart';
 import 'cart_page1.dart';
 
@@ -13,8 +14,6 @@ class MenuPage extends StatefulWidget {
 }
 
 class _MenuPageState extends State<MenuPage> {
-  List<Map<String, dynamic>> cartItems = [];
-
   Future<List<Map<String, dynamic>>> loadMenuItems(BuildContext context) async {
     try {
       String dataString = await DefaultAssetBundle.of(context).loadString('assets/data1.json');
@@ -36,24 +35,7 @@ class _MenuPageState extends State<MenuPage> {
   }
 
   void addToCart(Map<String, dynamic> item) {
-    setState(() {
-      var existingItem = cartItems.firstWhere(
-        (cartItem) => cartItem['Name'] == item['Name'],
-        orElse: () => {},
-      );
-
-      if (existingItem.isEmpty) {
-        cartItems.add({
-          'Name': item['Name'],
-          'Image': item['Image'],
-          'price': item['price'],
-          'quantity': 1,
-        });
-      } else {
-        existingItem['quantity']++;
-      }
-    });
-
+    CartManager().addItem(item);
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text('${item['Name']} added to cart!'),
@@ -159,7 +141,7 @@ class _MenuPageState extends State<MenuPage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => CartPage(cartItems: cartItems),
+                    builder: (context) => CartPage(),
                   ),
                 );
               },
