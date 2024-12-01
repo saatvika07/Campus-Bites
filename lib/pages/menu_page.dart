@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:login_signup/widgets/custom_scaffold.dart';
 import 'cart_page1.dart';
 
 class MenuPage extends StatefulWidget {
@@ -63,12 +64,9 @@ class _MenuPageState extends State<MenuPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.restaurantName),
-        backgroundColor: Colors.orange.shade700,
-      ),
-      body: Stack(
+    return CustomScaffold(
+      title: widget.restaurantName,
+      child: Stack(
         children: [
           FutureBuilder<List<Map<String, dynamic>>>(
             future: loadMenuItems(context),

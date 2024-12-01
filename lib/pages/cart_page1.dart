@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:login_signup/widgets/custom_scaffold.dart';
 
 class CartPage extends StatefulWidget {
   final List<Map<String, dynamic>> cartItems;
@@ -39,14 +40,9 @@ class _CartPageState extends State<CartPage> {
       total += price * item['quantity']; // 'price' is now a double
     }
 
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Cart"),
-        backgroundColor: const Color.fromARGB(255, 244, 243, 243),
-        centerTitle: true,
-        elevation: 8,
-      ),
-      body: widget.cartItems.isEmpty
+    return CustomScaffold(
+        title: "Cart",
+      child: widget.cartItems.isEmpty
           ? const Center(
               child: Text(
                 "Your cart is empty.",

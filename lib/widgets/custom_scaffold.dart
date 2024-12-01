@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 
 class CustomScaffold extends StatelessWidget {
-  const CustomScaffold({super.key, this.child});
+  const CustomScaffold({super.key, this.child, this.title});
   final Widget? child;
+  final String? title;  // Optional title parameter
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: title != null ? Text(title!) : null,  // Set title dynamically
         iconTheme: const IconThemeData(color: Colors.orange),
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -19,7 +21,6 @@ class CustomScaffold extends StatelessWidget {
             ),
             onPressed: () {
               // Define the action you want when the admin icon is tapped
-              // You can navigate to an admin panel or show a dialog here
             },
           ),
         ],

@@ -58,6 +58,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
+      title: 'Home',
       child: FutureBuilder<List<Map<String, dynamic>>>(  // Loading the restaurant data
         future: loadItems(context),
         builder: (context, snapshot) {
