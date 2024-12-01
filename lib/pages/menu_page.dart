@@ -40,6 +40,7 @@ class _MenuPageState extends State<MenuPage> {
       SnackBar(
         content: Text('${item['Name']} added to cart!'),
         backgroundColor: Colors.green.shade700,
+        duration: const Duration(seconds: 0),
       ),
     );
   }
