@@ -10,41 +10,60 @@ class WelcomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
+      drawer: Drawer(
+        child: ListView(
+          children: <Widget>[
+            ListTile(
+              title: Text('Item 1'),
+              onTap: () {},
+            ),
+            ListTile(
+              title: Text('Item 2'),
+              onTap: () {},
+            ),
+            ListTile(
+              title: Text('Item 3'),
+              onTap: () {},
+            ),
+          ],
+        ),
+      ),
       child: Column(
         children: [
           Flexible(
-              flex: 5,
-              child: Container(
-                padding: const EdgeInsets.symmetric(
-                  vertical: 0,
-                  horizontal: 40.0,
+            flex: 5,
+            child: Container(
+              padding: const EdgeInsets.symmetric(
+                vertical: 0,
+                horizontal: 40.0,
+              ),
+              child: Center(
+                child: RichText(
+                  textAlign: TextAlign.center,
+                  text: const TextSpan(
+                    children: [
+                      TextSpan(
+                        text: 'Welcome Back!\n',
+                        style: TextStyle(
+                          fontSize: 45.0,
+                          fontWeight: FontWeight.w600,
+                          color: Color.fromARGB(255, 21, 21, 21), // Correct property
+                        ),
+                      ),
+                      TextSpan(
+                        text: '\nEnter your personal details',
+                        style: TextStyle(
+                          fontSize: 20.0,
+                          height: 1.5, // Adjusted to reasonable line height
+                          color: Color.fromARGB(255, 21, 21, 21), // Correct property
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-                child: Center(
-  child: RichText(
-    textAlign: TextAlign.center,
-    text: const TextSpan(
-      children: [
-        TextSpan(
-          text: 'Welcome Back!\n',
-          style: TextStyle(
-            fontSize: 45.0,
-            fontWeight: FontWeight.w600,
-            color: Color.fromARGB(255, 21, 21, 21), // Correct property
+              ),
+            ),
           ),
-        ),
-        TextSpan(
-          text: '\nEnter your personal details',
-          style: TextStyle(
-            fontSize: 20.0,
-            height: 1.5, // Adjusted to reasonable line height
-            color: Color.fromARGB(255, 21, 21, 21), // Correct property
-          ),
-        ),
-      ],
-    ),
-  ),
-),
-              )),
           const Flexible(
             flex: 1,
             child: Align(

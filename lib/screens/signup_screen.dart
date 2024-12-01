@@ -18,6 +18,24 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
+      drawer: Drawer(
+        child: ListView(
+          children: <Widget>[
+            ListTile(
+              title: Text('Item 1'),
+              onTap: () {},
+            ),
+            ListTile(
+              title: Text('Item 2'),
+              onTap: () {},
+            ),
+            ListTile(
+              title: Text('Item 3'),
+              onTap: () {},
+            ),
+          ],
+        ),
+      ),
       child: Column(
         children: [
           const Expanded(

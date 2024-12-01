@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class CustomScaffold extends StatelessWidget {
-  const CustomScaffold({super.key, this.child, this.title});
+  const CustomScaffold({super.key, this.child, this.title, required Drawer drawer});
   final Widget? child;
   final String? title;  // Optional title parameter
 

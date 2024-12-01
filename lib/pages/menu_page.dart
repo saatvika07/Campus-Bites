@@ -49,9 +49,40 @@ class _MenuPageState extends State<MenuPage> {
   Widget build(BuildContext context) {
     return CustomScaffold(
       title: widget.restaurantName,
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            DrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.orange.shade700,
+              ),
+              child: Text(
+                'Menu Options',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                ),
+              ),
+            ),
+            ListTile(
+              title: Text('Item 1'),
+              onTap: () {
+                // Handle navigation or other actions
+              },
+            ),
+            ListTile(
+              title: Text('Item 2'),
+              onTap: () {
+                // Handle navigation or other actions
+              },
+            ),
+          ],
+        ),
+      ),
       child: Stack(
         children: [
-          FutureBuilder<List<Map<String, dynamic>>>(
+          FutureBuilder<List<Map<String, dynamic>>>( 
             future: loadMenuItems(context),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {

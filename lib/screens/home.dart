@@ -59,6 +59,37 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomScaffold(
       title: 'Home',
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            DrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.orange.shade700,
+              ),
+              child: Text(
+                'Menu Options',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                ),
+              ),
+            ),
+            ListTile(
+              title: Text('Item 1'),
+              onTap: () {
+                // Handle navigation or other actions
+              },
+            ),
+            ListTile(
+              title: Text('Item 2'),
+              onTap: () {
+                // Handle navigation or other actions
+              },
+            ),
+          ],
+        ),
+      ),
       child: FutureBuilder<List<Map<String, dynamic>>>(  // Loading the restaurant data
         future: loadItems(context),
         builder: (context, snapshot) {

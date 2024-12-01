@@ -18,6 +18,21 @@ class _SignInScreenState extends State<SignInScreen> {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
+      drawer: Drawer(
+        // Add your Drawer content here (e.g., list of items)
+        child: ListView(
+          children: <Widget>[
+            ListTile(
+              title: const Text('Item 1'),
+              onTap: () {},
+            ),
+            ListTile(
+              title: const Text('Item 2'),
+              onTap: () {},
+            ),
+          ],
+        ),
+      ),
       child: Column(
         children: [
           const Expanded(
