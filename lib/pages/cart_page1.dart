@@ -25,6 +25,43 @@ class _CartPageState extends State<CartPage> {
 
     return CustomScaffold(
       title: "Cart",
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            DrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.orange.shade700,
+              ),
+              child: Text(
+                'Menu',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                ),
+              ),
+            ),
+            ListTile(
+              title: Text('Home'),
+              onTap: () {
+                // Navigate to Home page
+              },
+            ),
+            ListTile(
+              title: Text('Cart'),
+              onTap: () {
+                // Navigate to Cart page
+              },
+            ),
+            ListTile(
+              title: Text('My Orders'),
+              onTap: () {
+                // Navigate to My Orders page
+              },
+            ),
+          ],
+        ),
+      ),
       child: cartItems.isEmpty
           ? const Center(
               child: Text(
@@ -165,6 +202,7 @@ class _CartPageState extends State<CartPage> {
                           onPressed: () {
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(content: Text('Order Placed Successfully!')),
+
                             );
                             CartManager().clearCart(); // Clear cart after placing order
                             setState(() {}); // Refresh UI
