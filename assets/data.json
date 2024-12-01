@@ -2,21 +2,21 @@
   {
     "placeImage": "images/FastFoods.jpg",
     "placeName": "Fast Food",
-    "restNAme": "fastfood"
+    "restNAme": "Fastfood"
   },
   {
     "placeImage": "images/tiffins.jpg",
     "placeName": "Tiffins",
-    "restNAme": "tiffins"
+    "restNAme": "Tiffins"
   },
   {
     "placeImage": "images/juices.jpg",
     "placeName": "Juice",
-    "restNAme": "juices"
+    "restNAme": "Juices"
   },
   {
     "placeImage": "images/panipuri1.jpg",
     "placeName": "PaniPuri & Chats",
-    "restNAme": "panipuri"
+    "restNAme": "Panipuri"
   }
 ]

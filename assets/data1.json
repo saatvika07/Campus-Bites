@@ -1,73 +1,217 @@
 [
-    {
-      "restNAme": "fastfood",
-      "menuItems": [
-        {
-          "Image": "assets/images/cfr.jpg",
-          "Name": "Chicken Fried rice",
-          "price": 180.0
-        },
-        {
-          "Image": "assets/images/ch65.jpg",
-          "Name": "Chicken 65",
-          "price": 220.0
-        },
-        {
-          "Image": "assets/images/cm.jpg",
-          "Name": "Chicken Manchurian",
-          "price": 120.0
-        },
-        {
-          "Image": "assets/images/cn.jpg",
-          "Name": "Chicken Noodles",
-          "price": 120.0
-        }
-      ]
-    },
-    {
-      "restNAme": "tiffins",
-      "menuItems": [
-        {
-          "Image": "assets/images/tiffins1.jpg",
-          "Name": "Veg Tiffin",
-          "price": 150.0
-        },
-        {
-          "Image": "assets/images/tiffins2.jpg",
-          "Name": "Rice Tiffin",
-          "price": 120.0
-        }
-      ]
-    },
-    {
-      "restNAme": "juices",
-      "menuItems": [
-        {
-          "Image": "assets/images/juices1.jpg",
-          "Name": "Mango Juice",
-          "price": 89.0
-        },
-        {
-          "Image": "assets/images/juices2.jpg",
-          "Name": "Apple Juice",
-          "price": 100.0
-        }
-      ]
-    },
-    {
-      "restNAme": "panipuri",
-      "menuItems": [
-        {
-          "Image": "assets/images/panipuri1.jpg",
-          "Name": "Pani Puri",
-          "price": 50.0
-        },
-        {
-          "Image": "assets/images/panipuri2.jpg",
-          "Name": "Sev Puri",
-          "price": 60.0
-        }
-      ]
-    }
-  ]
-  
+  {
+    "restNAme": "Fastfood",
+    "menuItems": [
+      {
+        "Image": "assets/images/vfr.jpg",
+        "Name": "Veg Fried Rice",
+        "price": 100.0
+      },
+      {
+        "Image": "assets/images/efr.jpg",
+        "Name": "Egg Fried Rice",
+        "price": 150.0
+      },
+      {
+        "Image": "assets/images/cfr.jpg",
+        "Name": "Chicken Fried Rice",
+        "price": 180.0
+      },
+      {
+        "Image": "assets/images/vn.jpg",
+        "Name": "Veg Noodles",
+        "price": 100.0
+      },
+      {
+        "Image": "assets/images/en.jpg",
+        "Name": "Egg Noodles",
+        "price": 150.0
+      },
+      {
+        "Image": "assets/images/cn.jpg",
+        "Name": "Chicken Noodles",
+        "price": 180.0
+      },
+      {
+        "Image": "assets/images/ch65.jpg",
+        "Name": "Chicken 65",
+        "price": 220.0
+      },
+      {
+        "Image": "assets/images/vm.jpg",
+        "Name": "Veg Manchuria",
+        "price": 120.0
+      },
+      {
+        "Image": "assets/images/cm.jpg",
+        "Name": "Chicken Manchuria",
+        "price": 150.0
+      }
+    ]
+  },
+  {
+    "restNAme": "Juices",
+    "menuItems": [
+      {
+        "Image": "assets/images/wj.jpg",
+        "Name": "Watermelon Juice",
+        "price": 70.0
+      },
+      {
+        "Image": "assets/images/pj.jpg",
+        "Name": "Pineapple Juice",
+        "price": 80.0
+      },
+      {
+        "Image": "assets/images/mmj.jpg",
+        "Name": "Muskmelon Juice",
+        "price": 90.0
+      },
+      {
+        "Image": "assets/images/mj.jpg",
+        "Name": "Mosambi Juice",
+        "price": 85.0
+      },
+      {
+        "Image": "assets/images/gp.jpg",
+        "Name": "Grape Juice",
+        "price": 95.0
+      },
+      {
+        "Image": "assets/images/om.jpg",
+        "Name": "Oreo Milkshake",
+        "price": 150.0
+      },
+      {
+        "Image": "assets/images/mgj.jpg",
+        "Name": "Mango Juice",
+        "price": 89.0
+      },
+      {
+        "Image": "assets/images/apj.jpg",
+        "Name": "Apple Juice",
+        "price": 100.0
+      },
+      {
+        "Image": "assets/images/Fruit.jpg",
+        "Name": "Fruits",
+        "price": 100.0
+      }
+    ]
+  },
+  {
+    "restNAme": "Tiffins",
+    "menuItems": [
+      {
+        "Image": "assets/images/md.jpg",
+        "Name": "Masala Dosa",
+        "price": 120.0
+      },
+      {
+        "Image": "assets/images/od.jpg",
+        "Name": "Onion Dosa",
+        "price": 130.0
+      },
+      {
+        "Image": "assets/images/u.jpg",
+        "Name": "Utapam",
+        "price": 140.0
+      },
+      {
+        "Image": "assets/images/pwc.jpg",
+        "Name": "Puri with Chicken",
+        "price": 150.0
+      },
+      {
+        "Image": "assets/images/pwv.jpg",
+        "Name": "Puri with Veg Curry",
+        "price": 120.0
+      },
+      {
+        "Image": "assets/images/bwm.jpg",
+        "Name": "Bajji with Masala",
+        "price": 100.0
+      },
+      {
+        "Image": "assets/images/bn.jpg",
+        "Name": "Bajji Normal",
+        "price": 80.0
+      },
+      {
+        "Image": "assets/images/v.jpg",
+        "Name": "Vada",
+        "price": 50.0
+      },
+      {
+        "Image": "assets/images/pk.jpg",
+        "Name": "Pakodi",
+        "price": 60.0
+      }
+    ]
+  },
+  {
+    "restNAme": "Panipuri",
+    "menuItems": [
+      {
+        "Image": "assets/images/pp.jpg",
+        "Name": "Pani Puri",
+        "price": 50.0
+      },
+      {
+        "Image": "assets/images/mc.jpg",
+        "Name": "Masala Chaat",
+        "price": 60.0
+      },
+      {
+        "Image": "assets/images/sc.jpg",
+        "Name": "Sweet Chaat",
+        "price": 70.0
+      },
+      {
+        "Image": "assets/images/dp.jpg",
+        "Name": "Dahi Puri",
+        "price": 75.0
+      },
+      {
+        "Image": "assets/images/sp.jpg",
+        "Name": "Sweet Puri",
+        "price": 80.0
+      },
+      {
+        "Image": "assets/images/mp.jpg",
+        "Name": "Masala Puri",
+        "price": 70.0
+      },
+      {
+        "Image": "assets/images/sac.jpg",
+        "Name": "Samosa Chaat",
+        "price": 90.0
+      },
+      {
+        "Image": "assets/images/dpc.jpg",
+        "Name": "Dahi Papdi Chaat",
+        "price": 95.0
+      },
+      {
+        "Image": "assets/images/mmc.jpg",
+        "Name": "Murmura Chaat",
+        "price": 60.0
+      },
+      {
+        "Image": "assets/images/pb.jpg",
+        "Name": "Pav Bhaji",
+        "price": 120.0
+      },
+      {
+        "Image": "assets/images/pf.jpg",
+        "Name": "Paneer Frankie",
+        "price": 150.0
+      },
+      {
+        "Image": "assets/images/cf.jpg",
+        "Name": "Chicken Frankie",
+        "price": 180.0
+      }
+    ]
+  }
+]
