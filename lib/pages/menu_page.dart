@@ -2,8 +2,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:login_signup/pages/cart_manager.dart';
 import 'package:login_signup/widgets/custom_scaffold.dart';
-import 'package:login_signup/widgets/search_widget.dart'; // Make sure this import is correct
-import 'cart_page1.dart';
+import 'package:login_signup/widgets/search_widget.dart';
+import 'cart_page1.dart'; // Ensure the CartPage class accepts cartItems
 
 class MenuPage extends StatefulWidget {
   final String restaurantName;
@@ -44,7 +44,7 @@ class _MenuPageState extends State<MenuPage> {
       SnackBar(
         content: Text('${item['Name']} added to cart!'),
         backgroundColor: Colors.green.shade700,
-        duration: const Duration(seconds: 0),
+        duration: const Duration(seconds: 2),
       ),
     );
   }
@@ -94,98 +94,119 @@ class _MenuPageState extends State<MenuPage> {
           ],
         ),
       ),
-      child: Column(
+      child: Stack(
         children: [
-          // Search bar
-          const Padding(
-            padding: EdgeInsets.all(8.0),
-            child: SearchWidget(
-              //onChanged: _searchMenuItems, // Update the search function
-            ),
-          ),
-          Expanded(
-            child: FutureBuilder<List<Map<String, dynamic>>>(
-              future: loadMenuItems(context),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(child: CircularProgressIndicator());
-                } else if (snapshot.hasError) {
-                  return const Center(child: Text('Error loading menu'));
-                } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                  return const Center(child: Text('No menu items available'));
-                }
+          Column(
+            children: [
+              const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: SearchWidget(
+                  // onChanged: _searchMenuItems, // Uncomment if connected to SearchWidget
+                ),
+              ),
+              Expanded(
+                child: FutureBuilder<List<Map<String, dynamic>>>(
+                  future: loadMenuItems(context),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(child: CircularProgressIndicator());
+                    } else if (snapshot.hasError) {
+                      return const Center(child: Text('Error loading menu'));
+                    } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                      return const Center(child: Text('No menu items available'));
+                    }
 
-                // Save the menu items to state and filter based on search query
-                if (_menuItems.isEmpty) {
-                  _menuItems = snapshot.data!;
-                  _filteredMenuItems = _menuItems;
-                }
+                    if (_menuItems.isEmpty) {
+                      _menuItems = snapshot.data!;
+                      _filteredMenuItems = _menuItems;
+                    }
 
-                return GridView.builder(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    mainAxisSpacing: 12,
-                    crossAxisSpacing: 12,
-                    childAspectRatio: 0.8,
-                  ),
-                  itemCount: _filteredMenuItems.length,
-                  itemBuilder: (context, index) {
-                    return Card(
-                      elevation: 8,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15),
+                    return GridView.builder(
+                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        mainAxisSpacing: 12,
+                        crossAxisSpacing: 12,
+                        childAspectRatio: 0.8,
                       ),
-                      child: Stack(
-                        alignment: Alignment.bottomCenter,
-                        children: [
-                          ClipRRect(
+                      itemCount: _filteredMenuItems.length,
+                      itemBuilder: (context, index) {
+                        return Card(
+                          elevation: 8,
+                          shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15),
-                            child: Image.asset(
-                              _filteredMenuItems[index]['Image'],
-                              fit: BoxFit.cover,
-                              width: double.infinity,
-                              height: double.infinity,
-                            ),
                           ),
-                          Container(
-                            padding: const EdgeInsets.all(8),
-                            color: Colors.black.withOpacity(0.6),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Text(
-                                  _filteredMenuItems[index]['Name'],
-                                  style: const TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white,
-                                  ),
+                          child: Stack(
+                            alignment: Alignment.bottomCenter,
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(15),
+                                child: Image.asset(
+                                  _filteredMenuItems[index]['Image'],
+                                  fit: BoxFit.cover,
+                                  width: double.infinity,
+                                  height: double.infinity,
                                 ),
-                                const SizedBox(height: 4),
-                                Text(
-                                  '₹${_filteredMenuItems[index]['price']}',
-                                  style: const TextStyle(
-                                    fontSize: 14,
-                                    color: Colors.white,
-                                  ),
+                              ),
+                              Container(
+                                padding: const EdgeInsets.all(8),
+                                color: Colors.black.withOpacity(0.6),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Text(
+                                      _filteredMenuItems[index]['Name'],
+                                      style: const TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 4),
+                                    Text(
+                                      '₹${_filteredMenuItems[index]['price']}',
+                                      style: const TextStyle(
+                                        fontSize: 14,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 4),
+                                    ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: Colors.orange.shade700,
+                                      ),
+                                      onPressed: () =>
+                                          addToCart(_filteredMenuItems[index]),
+                                      child: const Text('Add to Cart'),
+                                    ),
+                                  ],
                                 ),
-                                const SizedBox(height: 4),
-                                ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.orange.shade700,
-                                  ),
-                                  onPressed: () => addToCart(_filteredMenuItems[index]),
-                                  child: const Text('Add to Cart'),
-                                ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
+                        );
+                      },
                     );
                   },
+                ),
+              ),
+            ],
+          ),
+          Positioned(
+            bottom: 20,
+            right: 20,
+            child: FloatingActionButton(
+              backgroundColor: Colors.orange.shade700,
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => CartPage(
+                      cartItems: CartManager().cartItems,
+                    ),
+                  ),
                 );
               },
+              child: const Icon(Icons.shopping_cart),
             ),
           ),
         ],

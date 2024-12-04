@@ -3,7 +3,7 @@ import 'package:login_signup/pages/cart_manager.dart';
 import 'package:login_signup/widgets/custom_scaffold.dart';
 
 class CartPage extends StatefulWidget {
-  CartPage({super.key});
+  CartPage({super.key, required List<Map<String, dynamic>> cartItems});
 
   @override
   _CartPageState createState() => _CartPageState();
