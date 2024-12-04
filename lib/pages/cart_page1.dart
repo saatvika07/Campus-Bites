@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:login_signup/pages/cart_manager.dart';
+import 'package:login_signup/pages/payment.dart';
 import 'package:login_signup/widgets/custom_scaffold.dart';
 
 class CartPage extends StatefulWidget {
@@ -199,21 +200,18 @@ class _CartPageState extends State<CartPage> {
                         ),
                         const SizedBox(height: 12),
                         ElevatedButton(
-                          onPressed: () {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text('Order Placed Successfully!')),
-
-                            );
-                            CartManager().clearCart(); // Clear cart after placing order
-                            setState(() {}); // Refresh UI
-                          },
-                          child: const Text('Place Order'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.green,
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 30, vertical: 10),
-                          ),
-                        ),
+  onPressed: () {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const PaymentPage()),
+    );
+  },
+  child: const Text('Place Order'),
+  style: ElevatedButton.styleFrom(
+    backgroundColor: Colors.green,
+    padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+  ),
+),
                       ],
                     ),
                   ),
