@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:login_signup/pages/cart_manager.dart';
 import 'package:login_signup/widgets/custom_scaffold.dart';
+import 'package:login_signup/widgets/search_widget.dart'; // Make sure this import is correct
 import 'cart_page1.dart';
 
 class MenuPage extends StatefulWidget {
@@ -14,6 +15,9 @@ class MenuPage extends StatefulWidget {
 }
 
 class _MenuPageState extends State<MenuPage> {
+  List<Map<String, dynamic>> _menuItems = [];
+  List<Map<String, dynamic>> _filteredMenuItems = [];
+
   Future<List<Map<String, dynamic>>> loadMenuItems(BuildContext context) async {
     try {
       String dataString = await DefaultAssetBundle.of(context).loadString('assets/data1.json');
@@ -45,6 +49,16 @@ class _MenuPageState extends State<MenuPage> {
     );
   }
 
+  void _searchMenuItems(String query) {
+    final filteredItems = _menuItems.where((item) {
+      return item['Name'].toLowerCase().contains(query.toLowerCase());
+    }).toList();
+
+    setState(() {
+      _filteredMenuItems = filteredItems;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
@@ -57,7 +71,7 @@ class _MenuPageState extends State<MenuPage> {
               decoration: BoxDecoration(
                 color: Colors.orange.shade700,
               ),
-              child: Text(
+              child: const Text(
                 'Menu Options',
                 style: TextStyle(
                   color: Colors.white,
@@ -66,13 +80,13 @@ class _MenuPageState extends State<MenuPage> {
               ),
             ),
             ListTile(
-              title: Text('Item 1'),
+              title: const Text('Item 1'),
               onTap: () {
                 // Handle navigation or other actions
               },
             ),
             ListTile(
-              title: Text('Item 2'),
+              title: const Text('Item 2'),
               onTap: () {
                 // Handle navigation or other actions
               },
@@ -80,31 +94,41 @@ class _MenuPageState extends State<MenuPage> {
           ],
         ),
       ),
-      child: Stack(
+      child: Column(
         children: [
-          FutureBuilder<List<Map<String, dynamic>>>( 
-            future: loadMenuItems(context),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Center(child: CircularProgressIndicator());
-              } else if (snapshot.hasError) {
-                return const Center(child: Text('Error loading menu'));
-              } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                return const Center(child: Text('No menu items available'));
-              }
+          // Search bar
+          const Padding(
+            padding: EdgeInsets.all(8.0),
+            child: SearchWidget(
+              //onChanged: _searchMenuItems, // Update the search function
+            ),
+          ),
+          Expanded(
+            child: FutureBuilder<List<Map<String, dynamic>>>(
+              future: loadMenuItems(context),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(child: CircularProgressIndicator());
+                } else if (snapshot.hasError) {
+                  return const Center(child: Text('Error loading menu'));
+                } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                  return const Center(child: Text('No menu items available'));
+                }
 
-              List<Map<String, dynamic>> menuItems = snapshot.data!;
+                // Save the menu items to state and filter based on search query
+                if (_menuItems.isEmpty) {
+                  _menuItems = snapshot.data!;
+                  _filteredMenuItems = _menuItems;
+                }
 
-              return Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: GridView.builder(
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                return GridView.builder(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     mainAxisSpacing: 12,
                     crossAxisSpacing: 12,
                     childAspectRatio: 0.8,
                   ),
-                  itemCount: menuItems.length,
+                  itemCount: _filteredMenuItems.length,
                   itemBuilder: (context, index) {
                     return Card(
                       elevation: 8,
@@ -117,41 +141,41 @@ class _MenuPageState extends State<MenuPage> {
                           ClipRRect(
                             borderRadius: BorderRadius.circular(15),
                             child: Image.asset(
-                              menuItems[index]['Image'],
+                              _filteredMenuItems[index]['Image'],
                               fit: BoxFit.cover,
                               width: double.infinity,
                               height: double.infinity,
                             ),
                           ),
                           Container(
-                            padding: EdgeInsets.all(8),
+                            padding: const EdgeInsets.all(8),
                             color: Colors.black.withOpacity(0.6),
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 Text(
-                                  menuItems[index]['Name'],
-                                  style: TextStyle(
+                                  _filteredMenuItems[index]['Name'],
+                                  style: const TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold,
                                     color: Colors.white,
                                   ),
                                 ),
-                                SizedBox(height: 4),
+                                const SizedBox(height: 4),
                                 Text(
-                                  '₹${menuItems[index]['price']}',
-                                  style: TextStyle(
+                                  '₹${_filteredMenuItems[index]['price']}',
+                                  style: const TextStyle(
                                     fontSize: 14,
                                     color: Colors.white,
                                   ),
                                 ),
-                                SizedBox(height: 4),
+                                const SizedBox(height: 4),
                                 ElevatedButton(
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: Colors.orange.shade700,
                                   ),
-                                  onPressed: () => addToCart(menuItems[index]),
-                                  child: Text('Add to Cart'),
+                                  onPressed: () => addToCart(_filteredMenuItems[index]),
+                                  child: const Text('Add to Cart'),
                                 ),
                               ],
                             ),
@@ -160,24 +184,8 @@ class _MenuPageState extends State<MenuPage> {
                       ),
                     );
                   },
-                ),
-              );
-            },
-          ),
-          Positioned(
-            bottom: 20,
-            right: 20,
-            child: FloatingActionButton(
-              backgroundColor: Colors.orange.shade700,
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => CartPage(),
-                  ),
                 );
               },
-              child: Icon(Icons.shopping_cart),
             ),
           ),
         ],
