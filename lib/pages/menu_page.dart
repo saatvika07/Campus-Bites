@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:login_signup/pages/cart_manager.dart';
 import 'package:login_signup/widgets/custom_scaffold.dart';
 import 'package:login_signup/widgets/search_widget.dart';
-import 'cart_page1.dart'; // Ensure the CartPage class accepts cartItems
+import 'cart_page1.dart';
 
 class MenuPage extends StatefulWidget {
   final String restaurantName;
@@ -39,15 +39,16 @@ class _MenuPageState extends State<MenuPage> {
   }
 
   void addToCart(Map<String, dynamic> item) {
-    CartManager().addItem(item);
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text('${item['Name']} added to cart!'),
-        backgroundColor: Colors.green.shade700,
-        duration: const Duration(seconds: 2),
-      ),
-    );
-  }
+  CartManager().addItem(item, widget.restaurantName);
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      content: Text('${item['Name']} added to cart!'),
+      backgroundColor: Colors.green.shade700,
+      duration: const Duration(seconds: 2),
+    ),
+  );
+}
+
 
   void _searchMenuItems(String query) {
     final filteredItems = _menuItems.where((item) {
@@ -58,7 +59,6 @@ class _MenuPageState extends State<MenuPage> {
       _filteredMenuItems = filteredItems;
     });
   }
-
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
