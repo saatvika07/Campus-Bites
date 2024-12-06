@@ -1,56 +1,81 @@
 import 'package:flutter/material.dart';
 
 class PaymentPage extends StatelessWidget {
-  const PaymentPage({super.key});
+  final Map<String, List<Map<String, dynamic>>> groupedItems;
+
+  const PaymentPage({Key? key, required this.groupedItems}) : super(key: key);
+
+  double calculateSubtotal(List<Map<String, dynamic>> items) {
+    double subtotal = 0;
+    for (var item in items) {
+      double price = item['price'] is String ? double.parse(item['price']) : item['price'];
+      subtotal += price * item['quantity'];
+    }
+    return subtotal;
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Payment'),
-        backgroundColor: Colors.green,
+        title: const Text("Payment"),
+        backgroundColor: Colors.orange,
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text(
-              'Scan the QR Code to Make Payment',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 20),
-            Container(
-              padding: const EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                border: Border.all(color: Colors.grey.shade300),
-                borderRadius: BorderRadius.circular(15),
+      body: groupedItems.isEmpty
+          ? const Center(
+              child: Text(
+                "No items to display.",
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
-              child: Image.asset(
-                'assets/images/qr_code.png', // Replace with your QR code asset
-                width: 200,
-                height: 200,
-                fit: BoxFit.cover,
-              ),
-            ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Payment Completed Successfully!')),
+            )
+          : ListView(
+              children: groupedItems.entries.map((entry) {
+                String restaurantName = entry.key;
+                List<Map<String, dynamic>> items = entry.value;
+                double subtotal = calculateSubtotal(items);
+
+                return Card(
+                  margin: const EdgeInsets.all(12),
+                  elevation: 4,
+                  child: Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          restaurantName,
+                          style: const TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          'Total Payable: ₹${subtotal.toStringAsFixed(2)}',
+                          style: const TextStyle(fontSize: 16, color: Colors.green),
+                        ),
+                        const SizedBox(height: 12),
+                        Center(
+                          child: Column(
+                            children: [
+                              const Text(
+                                "Scan the QR code to pay:",
+                                style: TextStyle(
+                                    fontSize: 16, fontWeight: FontWeight.w600),
+                              ),
+                              const SizedBox(height: 8),
+                              Image.asset(
+                                'assets/images/qr_code.png', // Single QR code image
+                                width: 150,
+                                height: 150,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 );
-                Navigator.pop(context); // Navigate back to the cart page
-              },
-              child: const Text('Confirm Payment'),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.green,
-                padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-              ),
+              }).toList(),
             ),
-          ],
-        ),
-      ),
     );
   }
 }
